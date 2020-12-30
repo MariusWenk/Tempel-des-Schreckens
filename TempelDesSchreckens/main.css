@@ -1,0 +1,236 @@
+body{
+    background-image: url(Tempel_des_Schreckens_main.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%,100%;
+}
+
+.zentriert{
+    margin-top: 15%;
+    margin-left: 35%;
+    width: 30%;
+    text-align: center;
+    background-color: purple;
+    box-shadow: 0px 0px 10px black;
+    border-radius: 3px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    z-index: 1;
+}
+
+.zentriert p{
+    color: orange;
+    /*margin-top: 10px;*/
+    z-index: 1;
+}
+
+h3{
+    margin-bottom: 10px;
+    z-index: 1;
+}
+
+label{
+    color: orange;
+    z-index: 1;
+}
+
+.anzeige{
+    margin-top: 20px;
+    text-align: left;
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+                inset -2px -2px 3px rgba(0, 0, 0, .6);
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 10%;
+    padding-top: -20px;
+    padding-bottom: -20px;
+    margin-top: -5px;
+    z-index: 1;
+}
+
+.anzeige p{
+    color: black;
+    z-index: 1;
+}
+
+.anzeige:hover{
+    cursor: pointer;
+}
+
+.anzeige:active {
+    cursor: pointer;
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+                inset 2px 2px 3px rgba(0, 0, 0, .6);
+}
+
+#spieleranzeige{
+    background-color: grey;
+    float: right;
+    z-index: 6;
+}
+
+#link{
+    background-color: orange;
+    float: left;
+    z-index: 1;
+}
+
+#linkfeld{
+    background-color: white;
+    width: 30%;
+    text-align: center;
+    box-shadow: 0px 0px 10px black;
+    border-radius: 10px;
+    float: left;
+    margin-top: 10px;
+    clear: both;
+    z-index: 6;
+}
+
+#linkfeld h3{
+    color: blue;
+    z-index: 1;
+}
+
+#linkbutton{
+    background-color: orange;
+    margin-left: 30%;
+    width: 40%;
+    z-index: 5;
+}
+
+#linkbutton p{
+    text-align: center;
+    z-index: 1;
+}
+
+#spielerfeld{
+    background-color: white;
+    width: 30%;
+    text-align: center;
+    box-shadow: 0px 0px 10px black;
+    border-radius: 10px;
+    float: right;
+    margin-top: 10px;
+    clear: right;
+    z-index: 5;
+}
+
+#spielerfeld h3{
+    color: blue;
+    z-index: 1;
+}
+
+.spielerbutton{
+    background-color: orange;
+    margin-left: 30%;
+    width: 40%;
+    z-index: 1;
+}
+
+.spielerbutton p{
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    z-index: 1;
+}
+
+#spielernamenlinkfeld{
+    line-height: 200%;
+    z-index: 1;
+}
+
+.gameA{
+    margin-top: 15%;
+    margin-left: 20%;
+    width: 60%;
+    text-align: center;
+    background-color: purple;
+    box-shadow: 0px 0px 10px black;
+    border-radius: 3px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: absolute;
+    z-index: -1;
+}
+
+#gamebutton{
+    background-color: grey;
+    margin-left: 45%;
+    width: 10%;
+    z-index: 1;
+}
+
+#gamebutton p{
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    z-index: 1;
+}
+
+#game3button{
+    background-color: grey;
+    margin-left: 45%;
+    width: 10%;
+    z-index: 1;
+    clear:none;
+}
+
+#game3button p{
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    z-index: 1;
+}
+
+#statistik{
+    margin-top: 0%;
+    margin-left: 30%;
+    width: 40%;
+    text-align: center;
+    background-color: purple;
+    box-shadow: 0px 0px 10px black;
+    border-radius: 3px;
+    position: absolute;
+    z-index: -1;
+}
+
+#ownCards{
+    margin-top: 42%;
+    margin-bottom: 0%;
+    margin-left: 30%;
+    width: 40%;
+    text-align: center;
+    background-color: purple;
+    box-shadow: 0px 0px 10px black;
+    border-radius: 3px;
+    position: absolute;
+    z-index: -1;
+}
+
+.spielerA{
+    background-color: grey;
+    width: 10%;
+    z-index: 1;
+    clear: none;
+    float: left;
+    margin-top: 10px;
+    margin-left: 5%;
+}
+
+.spielerA p{
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    z-index: 1;
+}
+
+.karte{
+    margin-top: 30px;
+    margin-bottom: 10px;
+    float: left;
+    clear: none;
+    margin-left: 7%;
+    width: 10%;
+    z-index: 1;
+}
