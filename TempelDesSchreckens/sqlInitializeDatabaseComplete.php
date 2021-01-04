@@ -1,4 +1,17 @@
 <?php
+$conn = new mysqli("localhost", "root", "");
+if($conn->connect_error){
+    die("Connection failed: ".$conn->connect_error);
+}
+
+mysqli_query($conn, "DROP DATABASE tempeldesschreckens");
+
+if($conn->query("CREATE DATABASE tempeldesschreckens") === TRUE){
+    echo "Databse created succesfully";
+} else{
+    echo "Error creating database: ".$conn->connect_error;
+}
+
 include "sqlConnect.php";
 
 mysqli_query($connect, "DROP TABLE rooms");
@@ -33,5 +46,7 @@ mysqli_query($connect,"INSERT INTO doors VALUES (8, 30, 8, 2)");
 mysqli_query($connect,"INSERT INTO doors VALUES (9, 34, 9, 2)");
 mysqli_query($connect,"INSERT INTO doors VALUES (10, 37, 10, 3)");
 
+
+$conn -> close();
 $connect->close();
 ?>

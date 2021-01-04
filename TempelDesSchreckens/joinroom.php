@@ -2,6 +2,7 @@
 
     <?php
         $roomID = $_GET['roomID'];
+        $textID = $_GET['textID'];
     ?>
 
   <html lang="de">
@@ -17,32 +18,12 @@
     </head>
 
     <body>
-        <section class="zentriert">
-            <h3 class="hide"> Willkommen zu Tempel des Schreckens <br/></h3>
-            <form action = "sqlEnterRoom.php" method = "post">
-                <p>Nickname:</p>
-                <p><input name ="nickname"/></p>
-                <label><input type="checkbox" class="language" name="deutsch" checked="true"/> Deutsch</label>
-                <label><input type="checkbox" class="language" name="english"/> English</label>
-                <input name="roomID" value=<?php echo $roomID?> hidden />
-                <p>
-                <input type="submit" value="Raum <?php echo $roomID;?> beitreten"/>
-                </p>
-                <p>(Sprache noch nicht wirklich einstellbar)</p>
-             </form>
-        </section>
+        
+        <section class="zentriert" id="field"></section>
       
         <script>
-            $("input:checkbox").on('click', function() {
-            var box = $(this);
-            if (box.is(":checked")) {
-                var group = "input:checkbox[class='" + box.attr("class") + "']";
-                $(group).prop("checked", false);
-                box.prop("checked", true);
-            } else {
-                box.prop("checked", false);
-            }
-            });
+            var loadJoinroom = "joinroomLoad.php?textID=".concat("<?php echo $textID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
+            $("#field").load(loadJoinroom);
         </script>
 
         <?PHP

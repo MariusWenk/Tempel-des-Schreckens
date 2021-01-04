@@ -9,9 +9,18 @@
         -Git, Docker
         -Spieler verlässt Spiel
         -generischere Knopfbefehle
-        -Regeln anzeigen
+        -Anleitung
         -Daten verschlüsseln
         -Bilder Rechte
+        -Nur eine Karte wählen
+        -Einzelne Karte formatieren
+        -Design Kartenzahlen
+        -Bandbreite
+        -Sicherheit
+        -Erneut spielen
+        -Gewinner letzte Karte gezogen
+        -beliebig viele parallele Räume
+        -Gamephase 3 Ok Button verallgemeinern
     -->
 
 
@@ -76,14 +85,14 @@
                 <section class="anzeige button spielerbutton" id="spielerbutton2">
                     <p class="button"><?php 
                         if($status[$playerID] == "Host"){
-                            echo "Hostrechte abgeben";
+                            echo "Hostrechte abgebens";
                         }
                     ?></p>
                 </section>
             </section>
 
             <section id="statistik">
-                <h3>Gefundene Karten:</h3>
+                <h3 class="statistiktitel">Gefundene Karten:</h3>
                 <img src="Statistik.PNG" width="500px" height="10%">
                 <h3 id="statistikZahlen" class="statistikzahlen"> <?php echo $emptyDisc."/".$emptyGen;?>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <?php echo $treasureDisc."/".$treasureGen;?> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<?php echo $trapDisc."/".$trapGen;?></h3>
             </section>
@@ -91,10 +100,12 @@
             <section id="game" class="gameA"></section>
 
             <section id="ownCards">
-                <h3>Eigene Karten:</h3>
+                <h3 class="statistiktitel">Eigene Karten:</h3>
                 <img src="Statistik.PNG" width="500px" height="10%">
                 <h3 id="eigeneKartenZahlen" class="statistikzahlen"> <?php echo $empty[$playerID];?>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <?php echo $treasure[$playerID];?> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<?php echo $trap[$playerID];?></h3>
             </section>
+
+            <p id="updateNecessary" hidden>0</p>
         
             <script>
                 var loadMain = "gameLoadMain.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
@@ -129,17 +140,32 @@
                     });
                     $("#spielerbutton1").click(function(){
                         var newName = document.getElementById("newName").value;
-                        document.location.href = "sqlChangeName.php?newName=".concat(newName).concat("&playerID=").concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
+                        $.ajax({
+                            type: "GET",
+                            url: "sqlChangeName.php" ,
+                            data: {playerID: "<?php echo $playerID;?>", roomID: "<?php echo $roomID;?>", newName: newName },
+                            success : function() { 
+                                var loadGame = "gameLoad.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
+                                $("#spielertext").load(loadGame.concat(" #spielertext"));
+                                $("#linktext").load(loadGame.concat(" #linktext"));
+                                $("#spielernamenlinkfeld").load(loadGame.concat(" #spielernamenlinkfeld"));
+                                $("#spielername").load(loadGame.concat(" #spielername"));
+                                $("#rolle").load(loadGame.concat(" #rolle"));
+                                $("#status").load(loadGame.concat(" #status"));
+                                $("#host").load(loadGame.concat(" #host"));
+                                $("#statistikZahlen").load(loadGame.concat(" #statistikZahlen"));
+                                $("#eigeneKartenZahlen").load(loadGame.concat(" #eigeneKartenZahlen"));
+                            }
+                        });
                     });
                     $("#spielerbutton2").click(function(){
-                        document.location.href = "sqlUpdateHost.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
+                        xmlRequest("sqlUpdateHost.php");
                     });
                     $("#newName").click(function(){
                         selectText("newName");
                     });
 
                     function xmlRequestMenus(file, spM, liM){
-                        
                         $.ajax({
                             type: "GET",
                             url: file ,
@@ -154,7 +180,7 @@
                                 $("#status").load(loadGame.concat(" #status"));
                                 $("#host").load(loadGame.concat(" #host"));
                                 $("#statistikZahlen").load(loadGame.concat(" #statistikZahlen"));
-                                $("#eigenKartenZahlen").load(loadGame.concat(" #eigeneKartenZahlen"));
+                                $("#eigeneKartenZahlen").load(loadGame.concat(" #eigeneKartenZahlen"));
                             }
                         });
                     }
@@ -169,10 +195,36 @@
                         input.focus();
                         input.select();
                     }
+                    // if($("#updateNecessary").text() == "0"){
+                    //     $("#link").append("Test");
+                    // }
+                    // if($("#updateNecessary").text() == "1"){
+                    //     //xmlRequest("sqlSetUpdateNotNecessary.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>"));
+                    //     $("#link").append("Hi");
+                    // }
+                    function xmlRequest(file){
+                        $.ajax({
+                            type: "GET",
+                            url: file ,
+                            data: {playerID: "<?php echo $playerID;?>", roomID: "<?php echo $roomID;?>"},
+                            success : function() { 
+                                var loadGame = "gameLoad.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
+                                $("#spielertext").load(loadGame.concat(" #spielertext"));
+                                $("#linktext").load(loadGame.concat(" #linktext"));
+                                $("#spielernamenlinkfeld").load(loadGame.concat(" #spielernamenlinkfeld"));
+                                $("#spielername").load(loadGame.concat(" #spielername"));
+                                $("#rolle").load(loadGame.concat(" #rolle"));
+                                $("#status").load(loadGame.concat(" #status"));
+                                $("#host").load(loadGame.concat(" #host"));
+                                $("#statistikZahlen").load(loadGame.concat(" #statistikZahlen"));
+                                $("#eigeneKartenZahlen").load(loadGame.concat(" #eigeneKartenZahlen"));
+                            }
+                        });
+                    }
                 });
                 setInterval(function(){
-                    var loadVariables = "gameVariables.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
-                    $("#load").load(loadVariables);
+                    // var loadUpdateNecessary = "checkUpdateNecessary.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
+                    // $("#updateNecessary").load(loadUpdateNecessary.concat(" #updateNecessary"));
 
                     var loadGame = "gameLoad.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
                     $("#spielertext").load(loadGame.concat(" #spielertext"));
@@ -183,14 +235,14 @@
                     $("#status").load(loadGame.concat(" #status"));
                     $("#host").load(loadGame.concat(" #host"));
                     $("#statistikZahlen").load(loadGame.concat(" #statistikZahlen"));
-                    $("#eigenKartenZahlen").load(loadGame.concat(" #eigeneKartenZahlen"));
+                    $("#eigeneKartenZahlen").load(loadGame.concat(" #eigeneKartenZahlen"));
 
                     var loadMain = "gameLoadMain.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
                     $("#game").load(loadMain);
                 }, 5000);
                 setInterval(function(){
                     $("#fehlerStart").empty();
-                }, 5000);
+                }, 10000);
             </script>
 
         </body>

@@ -10,6 +10,4 @@ mysqli_query($connect, "UPDATE players SET SpielerMenu=$spielerMenu WHERE Player
 mysqli_query($connect, "UPDATE players SET LinkMenu=$linkMenu WHERE PlayerID=$playerID AND RoomID=$roomID");
 
 $connect -> close();
-
-//header("Location: game.php?roomID=".$roomID."&playerID=".$playerID);
 ?>

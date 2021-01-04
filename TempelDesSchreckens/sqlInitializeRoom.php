@@ -14,7 +14,7 @@ foreach($values as $key => $value){
 }
 
 mysqli_query($connect,"INSERT INTO rooms VALUES ($newID, '$language',false)");
-mysqli_query($connect,"INSERT INTO players VALUES ($newID, 0, '$name', 'Host', 'NR',false,true,true,true,0,0,0)");
+mysqli_query($connect,"INSERT INTO players VALUES ($newID, 0, '$name', 'Host', 'NR',false,true,true,true,0,0,0,false)");
 
 $connect -> close();
 

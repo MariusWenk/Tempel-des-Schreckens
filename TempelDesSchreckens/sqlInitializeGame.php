@@ -31,9 +31,7 @@ $r2 = rand(0,($spielerAnzahl-1));
 mysqli_query($connect,"UPDATE players SET AmZug=false WHERE PlayerID=0 AND RoomID='$roomID'");
 mysqli_query($connect,"UPDATE players SET AmZug=true WHERE PlayerID=$r2 AND RoomID='$roomID'");
 
-mysqli_query($connect,"INSERT INTO game VALUES ($roomID, $emptyGen, $treasureGen, $trapGen, 0, 0, 0, 0, $spielerAnzahl, 0, 1, 'Leer', 0, '')");
-
-// mysqli_query($connect, "UPDATE players SET UpdateNecessary=true WHERE RoomID=$roomID");
+mysqli_query($connect,"INSERT INTO game VALUES ($roomID, $emptyGen, $treasureGen, $trapGen, 0, 0, 0, 0, $spielerAnzahl, 0, 1, 'Leer', 0, '', '', 0)");
 
 mysqli_query($connect,"UPDATE rooms SET Initialisiert=true WHERE RoomID='$roomID'");
 

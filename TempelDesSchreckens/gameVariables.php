@@ -52,6 +52,7 @@
             $karteSelectedPosition = mysqli_fetch_array(mysqli_query($connect,"SELECT KarteSelectedPosition FROM game WHERE RoomID=$roomID"))[0];
             $karteSelectedPosition = mysqli_fetch_array(mysqli_query($connect,"SELECT KarteSelectedPosition FROM game WHERE RoomID=$roomID"))[0];
             $gewinner = mysqli_fetch_array(mysqli_query($connect,"SELECT Winner FROM game WHERE RoomID=$roomID"))[0];
+            $gameText = mysqli_fetch_array(mysqli_query($connect,"SELECT GameText FROM game WHERE RoomID=$roomID"))[0];
         }else{
             $gameMenu = 0; //0 hier wichtig
             $emptyGen = 0;
@@ -64,6 +65,7 @@
             $karteSelectedPosition = 0;
             $karteSelectedPosition = 0;
             $gewinner = "Niemand";
+            $gameText = "";
         }
         
         $connect -> close();

@@ -37,8 +37,14 @@ while($i < $spielerAnzahl){
     $i++;
 }
 
-$connect -> close();
+$i=0;
+while($i<$spielerAnzahl){
+    if($i != $playerID){
+        mysqli_query($connect, "UPDATE players SET UpdateNecessary=true WHERE RoomID=$roomID AND PlayerID=$playerID");
+    }
+    $i++;
+}
 
-header("Location: game.php?roomID=".$roomID."&playerID=".$playerID);
+$connect -> close();
 
 ?>

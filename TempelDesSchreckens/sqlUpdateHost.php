@@ -13,12 +13,15 @@ if($spielerAnzahl > 1){
     } else{
         mysqli_query($connect, "UPDATE players SET Status='Host' WHERE PlayerID=0 AND RoomID=$roomID");
     }
+}
 
-    // mysqli_query($connect, "UPDATE players SET UpdateNecessary=true WHERE RoomID=$roomID");
-
+$i=0;
+while($i<$spielerAnzahl){
+    if($i != $playerID){
+        mysqli_query($connect, "UPDATE players SET UpdateNecessary=true WHERE RoomID=$roomID AND PlayerID=$playerID");
+    }
+    $i++;
 }
 
 $connect -> close();
-
-header("Location: game.php?roomID=".$roomID."&playerID=".$playerID);
 ?>

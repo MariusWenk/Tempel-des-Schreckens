@@ -41,12 +41,18 @@ if($runde == 4){
     $check = false;
 }
 
+$i=0;
+while($i<$spielerAnzahl){
+    if($i != $playerID){
+        mysqli_query($connect, "UPDATE players SET UpdateNecessary=true WHERE RoomID=$roomID AND PlayerID=$playerID");
+    }
+    $i++;
+}
+
 $connect -> close();
 
 if($cardsPlayed == $spielerAnzahl && $check){
     header("Location: sqlSetCards.php?roomID=".$roomID."&playerID=".$playerID);
-}else{
-    header("Location: game.php?roomID=".$roomID."&playerID=".$playerID);
 }
 
 ?>

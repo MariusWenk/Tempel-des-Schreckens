@@ -32,10 +32,10 @@
             }
             else if($gameMenu == 1){
                 echo "<h3 id=\"game1title\">Spieler zum Ziehen der Karte wählen (Spieler am Zug: ".$name[$spielerAmZugIndex]." (nicht wählbar)):</h3>";
-                echo "<p id=\"game1main\">"; 
+                echo "<p id=\"game1main\">";
                     $i = 0;
                     while($i < $spielerAnzahl){
-                        echo "<section class=\"anzeige spielerA button\" id=\"spieler".$i."A\"><p class=\"button\" id=\"spieler".$i."\">";
+                        echo "<section class=\"anzeige spielerA button\" id=\"spieler".$i."A\" clear: both;\"><p class=\"button\" id=\"spieler".$i."\">";
                             if($spielerAnzahl > $i && $spielerAmZugIndex != $i && $kartenGesamt[$i] != 0){
                                 echo $name[$i]." (".$kartenGesamt[$i].")";
                             }else{
@@ -45,6 +45,7 @@
                         $i++;
                     }
                 echo "</p>";
+                echo "<h3 id=\"game3subtitle\" style=\"margin-top: 18%\"></h3>";
             }
             else if($gameMenu == 2){
                 echo "<h3 id=\"game2title\">Karte wählen (aus der Auslage von: ".$name[$spielerCardsSelectedIndex]."):</h3>";
@@ -68,8 +69,10 @@
                         $i++;
                     }
                 echo "</p>";
+                echo "<h3 id=\"game3subtitle\" style=\"margin-top: 26%\"></h3>";
             }
             else if($gameMenu == 3){
+                echo "<h3>".$gameText."</h3>";
                 echo "<h3 id=\"game3title\">Gewählte Karte aus der Auslage von: ".$name[$spielerCardsSelectedIndex].":</h3>";
                 echo "<p id=\"game3main\">";
                     $i = 0;
@@ -116,12 +119,16 @@
             <script>
                 $(document).ready(function(){
                     $("#gamebutton").click(function(){
-                        if("<?php echo $status[$playerID];?>" != "Host"){
-                            $("#fehlerStart").append("Du bist kein Host");
-                        } else if(parseInt("<?php echo $spielerAnzahl;?>") < 3 || parseInt("<?php echo $spielerAnzahl;?>") > 10){
-                            $("#fehlerStart").append("Das Spiel ist für die aktuelle Spielerzahl nicht möglich.");
-                        }else {
-                            xmlRequest("sqlInitializeGame.php");
+                        if("<?php echo $initialisiert;?>" == "0"){
+                            if("<?php echo $status[$playerID];?>" != "Host"){
+                                $("#fehlerStart").empty();
+                                $("#fehlerStart").append("Du bist kein Host");
+                            } else if(parseInt("<?php echo $spielerAnzahl;?>") < 3 || parseInt("<?php echo $spielerAnzahl;?>") > 10){
+                                $("#fehlerStart").empty();
+                                $("#fehlerStart").append("Das Spiel ist für die aktuelle Spielerzahl nicht möglich.");
+                            }else {
+                                xmlRequest("sqlInitializeGame.php");
+                            }
                         }
                     });
                     $("#game3button").click(function(){
@@ -163,6 +170,36 @@
                                 spielerSelect(3);
                             }
                         });
+                        $("#spieler4A").click(function(){
+                            if(parseInt("<?php echo $spielerAnzahl;?>") > 4 && "<?php echo $spielerAmZugIndex;?>" != "4" && "<?php if($spielerAnzahl > 4){echo $kartenGesamt[4];}?>" != "0"){
+                                spielerSelect(4);
+                            }
+                        });
+                        $("#spieler5A").click(function(){
+                            if(parseInt("<?php echo $spielerAnzahl;?>") > 5 && "<?php echo $spielerAmZugIndex;?>" != "5" && "<?php if($spielerAnzahl > 5){echo $kartenGesamt[5];}?>" != "0"){
+                                spielerSelect(5);
+                            }
+                        });
+                        $("#spieler6A").click(function(){
+                            if(parseInt("<?php echo $spielerAnzahl;?>") > 6 && "<?php echo $spielerAmZugIndex;?>" != "6" && "<?php if($spielerAnzahl > 6){echo $kartenGesamt[6];}?>" != "0"){
+                                spielerSelect(6);
+                            }
+                        });
+                        $("#spieler7A").click(function(){
+                            if(parseInt("<?php echo $spielerAnzahl;?>") > 7 && "<?php echo $spielerAmZugIndex;?>" != "7" && "<?php if($spielerAnzahl > 7){echo $kartenGesamt[7];}?>" != "0"){
+                                spielerSelect(7);
+                            }
+                        });
+                        $("#spieler8A").click(function(){
+                            if(parseInt("<?php echo $spielerAnzahl;?>") > 8 && "<?php echo $spielerAmZugIndex;?>" != "8" && "<?php if($spielerAnzahl > 8){echo $kartenGesamt[8];}?>" != "0"){
+                                spielerSelect(8);
+                            }
+                        });
+                        $("#spieler9A").click(function(){
+                            if(parseInt("<?php echo $spielerAnzahl;?>") > 9 && "<?php echo $spielerAmZugIndex;?>" != "9" && "<?php if($spielerAnzahl > 9){echo $kartenGesamt[9];}?>" != "0"){
+                                spielerSelect(9);
+                            }
+                        });
 
                         function spielerSelect(spielerID){
                             $.ajax({
@@ -179,7 +216,8 @@
                                 $("#status").load(loadGame.concat(" #status"));
                                 $("#host").load(loadGame.concat(" #host"));
                                 $("#statistikZahlen").load(loadGame.concat(" #statistikZahlen"));
-                                $("#eigenKartenZahlen").load(loadGame.concat(" #eigeneKartenZahlen"));
+                                $("#eigeneKartenZahlen").load(loadGame.concat(" #eigeneKartenZahlen"));
+
                                 var loadMain = "gameLoadMain.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
                                 $("#game").load(loadMain);
                             }
@@ -227,7 +265,8 @@
                                 $("#status").load(loadGame.concat(" #status"));
                                 $("#host").load(loadGame.concat(" #host"));
                                 $("#statistikZahlen").load(loadGame.concat(" #statistikZahlen"));
-                                $("#eigenKartenZahlen").load(loadGame.concat(" #eigeneKartenZahlen"));
+                                $("#eigeneKartenZahlen").load(loadGame.concat(" #eigeneKartenZahlen"));
+
                                 var loadMain = "gameLoadMain.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
                                 $("#game").load(loadMain);
                             }
@@ -250,7 +289,8 @@
                                 $("#status").load(loadGame.concat(" #status"));
                                 $("#host").load(loadGame.concat(" #host"));
                                 $("#statistikZahlen").load(loadGame.concat(" #statistikZahlen"));
-                                $("#eigenKartenZahlen").load(loadGame.concat(" #eigeneKartenZahlen"));
+                                $("#eigeneKartenZahlen").load(loadGame.concat(" #eigeneKartenZahlen"));
+
                                 var loadMain = "gameLoadMain.php?playerID=".concat("<?php echo $playerID;?>").concat("&roomID=").concat("<?php echo $roomID;?>");
                                 $("#game").load(loadMain);
                             }
